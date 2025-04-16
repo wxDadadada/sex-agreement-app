@@ -2,6 +2,11 @@
 
 一个用于创建、签署和管理性行为同意协议的 Web 应用程序。该应用允许用户在线创建详细的性行为同意协议，并通过数字签名方式进行签署，同时支持导出为 PDF 格式保存。
 
+## 在线预览
+
+您可以通过以下链接访问在线演示版本：
+[在线演示版本](https://sex-agreement-app.pages.dev/)
+
 ## 功能特性
 
 - 创建自定义性同意协议
@@ -12,6 +17,24 @@
 - 本地存储所有数据，保障隐私安全
 - 响应式设计，适配移动和桌面设备
 - 美观直观的用户界面
+
+## 应用截图
+
+### 首页
+
+![首页](./images/首页.png)
+
+### 创建协议流程
+
+![基本信息](./images/创建协议-基本信息.png)
+![详细条款](./images/创建协议-详细条款.png)
+![安全与隐私](./images/创建协议-安全与隐私.png)
+![确认提交](./images/创建协议-确认提交.png)
+
+### 协议管理
+
+![我的协议列表](./images/我的协议列表.png)
+![协议详情页面](./images/协议详情页面.png)
 
 ## 技术栈
 
@@ -49,3 +72,7 @@ npm run start
 - 此系统生成的协议仅作为参考，在某些司法管辖区可能不具备法律效力
 - 用户应理解真实的同意是持续的、可以撤回的过程
 - 在紧急或敏感情况下，请咨询专业法律建议
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=123xiao/sex-agreement-app&type=Date)](https://www.star-history.com/#123xiao/sex-agreement-app&Date)
