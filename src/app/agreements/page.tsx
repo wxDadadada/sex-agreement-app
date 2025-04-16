@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
 
 // 协议类型定义
@@ -174,7 +173,7 @@ export default function AgreementsList() {
     }
   };
 
-  // 添加PDF导出功能
+  // 修改导出功能
   const handleExportPDF = () => {
     if (!selectedAgreement) return;
 
@@ -197,7 +196,7 @@ export default function AgreementsList() {
       loadingBox.style.padding = "2rem";
       loadingBox.style.borderRadius = "0.5rem";
       loadingBox.style.textAlign = "center";
-      loadingBox.innerHTML = "正在生成PDF...";
+      loadingBox.innerHTML = "正在生成文档...";
 
       loadingEl.appendChild(loadingBox);
       document.body.appendChild(loadingEl);
@@ -205,13 +204,14 @@ export default function AgreementsList() {
       // 使用setTimeout来允许加载状态显示
       setTimeout(() => {
         try {
-          // 创建临时容器用于生成PDF
+          // 创建临时容器用于生成图像
           const container = document.createElement("div");
           container.style.position = "absolute";
           container.style.left = "-9999px";
           container.style.top = "0";
           container.style.width = "800px"; // 设置宽度以确保布局正确
           container.style.fontFamily = "Arial, 'Microsoft YaHei', sans-serif"; // 确保使用支持中文的字体
+          container.style.backgroundColor = "#ffffff"; // 确保背景为白色
 
           // 使用明确的RGB颜色值
           const textColor = "rgb(0, 0, 0)";
@@ -354,7 +354,7 @@ export default function AgreementsList() {
 
           document.body.appendChild(container);
 
-          // 使用html2canvas捕获容器内容 - 避免OKLCH颜色问题
+          // 使用html2canvas捕获容器内容
           const html2canvasOptions = {
             scale: 2, // 提高清晰度
             useCORS: true,
@@ -374,37 +374,18 @@ export default function AgreementsList() {
 
           html2canvas(container, html2canvasOptions)
             .then((canvas) => {
-              // 使用canvas生成PDF
-              const imgData = canvas.toDataURL("image/png");
-              const pdf = new jsPDF({
-                orientation: "portrait",
-                unit: "mm",
-                format: "a4",
-              });
+              // 创建下载链接
+              const link = document.createElement("a");
+              // 使用更高质量设置转换为PNG
+              link.href = canvas.toDataURL("image/png", 1.0);
+              // 设置文件名
+              link.download = `${selectedAgreement.agreementTitle}.png`;
+              document.body.appendChild(link);
+              // 触发下载
+              link.click();
 
-              // 计算图像尺寸以适应A4页面
-              const imgWidth = 210; // A4宽度，单位mm
-              const pageHeight = 297; // A4高度，单位mm
-              const imgHeight = (canvas.height * imgWidth) / canvas.width;
-
-              // 添加图像到第一页
-              let heightLeft = imgHeight;
-              let position = 0;
-              pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
-              heightLeft -= pageHeight;
-
-              // 如果内容超过一页，添加更多页面
-              while (heightLeft > 0) {
-                position = heightLeft - imgHeight;
-                pdf.addPage();
-                pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
-                heightLeft -= pageHeight;
-              }
-
-              // 保存PDF
-              pdf.save(`${selectedAgreement.agreementTitle}.pdf`);
-
-              // 清理临时元素
+              // 清理DOM
+              document.body.removeChild(link);
               document.body.removeChild(container);
               document.body.removeChild(loadingEl);
             })
@@ -412,17 +393,17 @@ export default function AgreementsList() {
               console.error("HTML2Canvas错误:", error);
               document.body.removeChild(container);
               document.body.removeChild(loadingEl);
-              alert("导出PDF时发生错误，请稍后再试。");
+              alert("导出文档时发生错误，请稍后再试。");
             });
         } catch (error) {
-          console.error("PDF生成错误:", error);
+          console.error("导出文档错误:", error);
           document.body.removeChild(loadingEl);
-          alert("导出PDF时发生错误，请稍后再试。");
+          alert("导出文档时发生错误，请稍后再试。");
         }
       }, 100);
     } catch (error) {
-      console.error("Error exporting PDF:", error);
-      alert("导出PDF时发生错误，请稍后再试。");
+      console.error("导出文档错误:", error);
+      alert("导出文档时发生错误，请稍后再试。");
     }
   };
 
@@ -573,7 +554,7 @@ export default function AgreementsList() {
               打印
             </button>
             <button onClick={handleExportPDF} className="btn btn-outline">
-              导出PDF
+              导出图片
             </button>
             <button
               onClick={closeSelectedAgreement}
