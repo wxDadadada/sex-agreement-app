@@ -251,6 +251,62 @@ export default function CreateAgreement() {
               </div>
             </div>
 
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">参与方1身份证号</span>
+                </label>
+                <input
+                  type="text"
+                  className="input input-bordered w-full"
+                  {...register("party1ID", {
+                    required: "请输入参与方1身份证号",
+                    pattern: {
+                      value: /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/,
+                      message: "请输入有效的身份证号",
+                    },
+                  })}
+                />
+                {errors.party1ID && (
+                  <p className="text-error mt-1">{errors.party1ID.message}</p>
+                )}
+              </div>
+
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">参与方2身份证号</span>
+                </label>
+                <input
+                  type="text"
+                  className="input input-bordered w-full"
+                  {...register("party2ID", {
+                    required: "请输入参与方2身份证号",
+                    pattern: {
+                      value: /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/,
+                      message: "请输入有效的身份证号",
+                    },
+                  })}
+                />
+                {errors.party2ID && (
+                  <p className="text-error mt-1">{errors.party2ID.message}</p>
+                )}
+              </div>
+            </div>
+
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">日期</span>
+              </label>
+              <input
+                type="date"
+                className="input input-bordered w-full"
+                {...register("date", { required: "请选择日期" })}
+              />
+              {errors.date && (
+                <p className="text-error mt-1">{errors.date.message}</p>
+              )}
+            </div>
+
             <div className="form-control">
               <label className="label">
                 <span className="label-text">协议标题</span>
@@ -309,62 +365,6 @@ export default function CreateAgreement() {
                 </div>
               </div>
             )}
-
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">日期</span>
-              </label>
-              <input
-                type="date"
-                className="input input-bordered w-full"
-                {...register("date", { required: "请选择日期" })}
-              />
-              {errors.date && (
-                <p className="text-error mt-1">{errors.date.message}</p>
-              )}
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">参与方1身份证号</span>
-                </label>
-                <input
-                  type="text"
-                  className="input input-bordered w-full"
-                  {...register("party1ID", {
-                    required: "请输入参与方1身份证号",
-                    pattern: {
-                      value: /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/,
-                      message: "请输入有效的身份证号",
-                    },
-                  })}
-                />
-                {errors.party1ID && (
-                  <p className="text-error mt-1">{errors.party1ID.message}</p>
-                )}
-              </div>
-
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">参与方2身份证号</span>
-                </label>
-                <input
-                  type="text"
-                  className="input input-bordered w-full"
-                  {...register("party2ID", {
-                    required: "请输入参与方2身份证号",
-                    pattern: {
-                      value: /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/,
-                      message: "请输入有效的身份证号",
-                    },
-                  })}
-                />
-                {errors.party2ID && (
-                  <p className="text-error mt-1">{errors.party2ID.message}</p>
-                )}
-              </div>
-            </div>
 
             <div className="flex justify-between mt-8">
               <Link href="/" className="btn btn-outline">
