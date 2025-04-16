@@ -173,8 +173,8 @@ export default function AgreementsList() {
     }
   };
 
-  // 修改导出功能
-  const handleExportPDF = () => {
+  // 导出打印版本功能
+  const handleExportPrintable = () => {
     if (!selectedAgreement) return;
 
     try {
@@ -553,8 +553,8 @@ export default function AgreementsList() {
             <button onClick={handlePrint} className="btn btn-outline">
               打印
             </button>
-            <button onClick={handleExportPDF} className="btn btn-outline">
-              导出图片
+            <button onClick={handleExportPrintable} className="btn btn-outline">
+              导出打印版本
             </button>
             <button
               onClick={closeSelectedAgreement}
@@ -625,6 +625,25 @@ export default function AgreementsList() {
                   )}
                 </div>
               </div>
+            </div>
+
+            <div className="alert alert-info mt-2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                className="stroke-current shrink-0 w-6 h-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                ></path>
+              </svg>
+              <span>
+                建议使用"打印"或"导出打印版本"功能后，由双方在纸质文档上手写签名确认
+              </span>
             </div>
           </div>
         </div>

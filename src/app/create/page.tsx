@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
@@ -116,6 +116,16 @@ export default function CreateAgreement() {
     },
   });
 
+  // 监听双方姓名变化，自动生成标题
+  const party1Name = watch("party1Name");
+  const party2Name = watch("party2Name");
+
+  useEffect(() => {
+    if (party1Name && party2Name) {
+      setValue("agreementTitle", `${party1Name}与${party2Name}性同意协议`);
+    }
+  }, [party1Name, party2Name, setValue]);
+
   // 处理表单提交
   const onSubmit: SubmitHandler<ConsentFormData> = (data) => {
     // 处理安全措施选项
@@ -211,9 +221,40 @@ export default function CreateAgreement() {
         {/* 第一步：基本信息 */}
         {step === 1 && (
           <div className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">参与方1姓名</span>
+                </label>
+                <input
+                  type="text"
+                  className="input input-bordered w-full"
+                  {...register("party1Name", { required: "请输入参与方1姓名" })}
+                />
+                {errors.party1Name && (
+                  <p className="text-error mt-1">{errors.party1Name.message}</p>
+                )}
+              </div>
+
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">参与方2姓名</span>
+                </label>
+                <input
+                  type="text"
+                  className="input input-bordered w-full"
+                  {...register("party2Name", { required: "请输入参与方2姓名" })}
+                />
+                {errors.party2Name && (
+                  <p className="text-error mt-1">{errors.party2Name.message}</p>
+                )}
+              </div>
+            </div>
+
             <div className="form-control">
               <label className="label">
                 <span className="label-text">协议标题</span>
+                <span className="label-text-alt">填写双方姓名后自动生成</span>
               </label>
               <input
                 type="text"
@@ -286,20 +327,6 @@ export default function CreateAgreement() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text">参与方1姓名</span>
-                </label>
-                <input
-                  type="text"
-                  className="input input-bordered w-full"
-                  {...register("party1Name", { required: "请输入参与方1姓名" })}
-                />
-                {errors.party1Name && (
-                  <p className="text-error mt-1">{errors.party1Name.message}</p>
-                )}
-              </div>
-
-              <div className="form-control">
-                <label className="label">
                   <span className="label-text">参与方1身份证号</span>
                 </label>
                 <input
@@ -315,22 +342,6 @@ export default function CreateAgreement() {
                 />
                 {errors.party1ID && (
                   <p className="text-error mt-1">{errors.party1ID.message}</p>
-                )}
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">参与方2姓名</span>
-                </label>
-                <input
-                  type="text"
-                  className="input input-bordered w-full"
-                  {...register("party2Name", { required: "请输入参与方2姓名" })}
-                />
-                {errors.party2Name && (
-                  <p className="text-error mt-1">{errors.party2Name.message}</p>
                 )}
               </div>
 
