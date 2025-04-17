@@ -36,6 +36,52 @@ export default function Home() {
           <li>本系统生成的协议可打印出来供双方手签</li>
         </ul>
       </div>
+
+      <div className="mt-8 text-center max-w-3xl w-full text-sm opacity-80">
+        <div className="border-t pt-6 border-gray-200 dark:border-gray-700">
+          <p className="mb-3">本项目开源于GitHub</p>
+          <div className="flex justify-center items-center gap-3">
+            <a
+              href="https://github.com/123xiao/sex-agreement-app"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary hover:underline"
+            >
+              仓库地址
+            </a>
+            <span>•</span>
+            <a
+              href="https://github.com/123xiao/sex-agreement-app/issues"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary hover:underline"
+            >
+              问题反馈
+            </a>
+            <span>•</span>
+            <a
+              href="https://github.com/123xiao/sex-agreement-app/stargazers"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1 hover:opacity-80 transition-opacity"
+            >
+              <img
+                src="https://img.shields.io/github/stars/123xiao/sex-agreement-app?style=flat-square&color=gray"
+                alt="GitHub Stars"
+                height="20"
+              />
+            </a>
+          </div>
+          <div className="mt-3">
+            <p className="text-xs text-gray-500 mb-2">访问统计</p>
+            <img
+              src="https://profile-counter.glitch.me/123xiao-sex-agreement-app/count.svg"
+              alt="访问计数器"
+              className="mx-auto"
+            />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
